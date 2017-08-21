@@ -832,8 +832,14 @@ export default class Parser {
 
     this.withPath(() => {
       // Check if json is in consumes
-      const consumes = methodValue.consumes || this.swagger.consumes || [];
-      const produces = methodValue.produces || this.swagger.produces || [];
+      var consumes = [];
+      var produces = [];
+      if (methodValue.operationId != "GET_path" && methodValue.operationId != "OPTIONS_path" && methodValue.operationId != "HEAD_path") {
+        consumes = methodValue.consumes || _this10.swagger.consumes || [];
+      }
+      if (methodValue.operationId != "OPTIONS_path" && methodValue.operationId != "HEAD_path") {
+        produces = methodValue.produces || _this10.swagger.produces || [];
+      }
 
       const jsonConsumesContentType = _.find(consumes, isJsonContentType);
       const jsonProducesContentType = _.find(produces, isJsonContentType);
